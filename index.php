@@ -30,7 +30,27 @@ $f3->route('GET /personal', function() {
 }
 );
 
-$f3->route('GET /profile', function() {
+$f3->route('POST /profile', function() {
+
+    //print_r($_POST);
+
+    //Array ( [first] => 1234 [last] => 1234 [age] => 1234 [male] => on [phone] => 1234 )
+
+    $gender = "?";
+
+    $_SESSION['first'] = $_POST['first'];
+    $_SESSION['last'] = $_POST['first'];
+    $_SESSION['age'] = $_POST['first'];
+
+    if(isset($_POST['male'])){
+        $gender = "Male";
+    }
+    if(isset($_POST['female'])){
+        $gender = 'Female';
+    }
+    $_SESSION['gender'] = $gender;
+
+    $_SESSION['phone'] = $_POST['phone'];
 
     $template = new Template();
     echo $template->render('pages/profile.html');

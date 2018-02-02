@@ -1,10 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Personal Info</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom Styles -->
+    <!-- <link rel="stylesheet" href="../MyDatingSite/styles/styles.css"> -->
+
+
+    <style>
+
+        .card{
+            margin: 2em;
+        }
+
+        h1 {
+            padding: 15px;
+            padding-top: 25px;
+        }
+
+        p {
+            padding: 15px;
+        }
+
+        hr {
+            width: 90%;
+        }
+
+        form {
+            padding-left: 15px;
+            padding-bottom: 10px;
+        }
+
+
+    </style>
+
 </head>
 <body>
+<nav class="navbar navbar-light" style="background-color: #a4aaaa;">
+    <h2>MyDatingSite</h2>
+</nav>
 
+<div class="card border-secondary mb-3" >
+
+    <div class="card-body">
+
+        <h1>Personal Information</h1>
+        <hr>
+        <div class="container">
+            <div class="row col-md-8">
+                <form method="post" action="./profile">
+                    <div class="form-group">
+                        <div class="col-5">
+                            <label><strong>First Name</strong></label>
+                            <input type="text" class="form-control" name="first">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Last Name</strong></label>
+                        <input type="text" class="form-control" name="last">
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Age</strong></label>
+                        <input type="text" class="form-control" name="age">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2"><strong>Gender</strong></label>
+                        <br>
+                        <label class="custom-control custom-radio">
+                            <input id="radio1" name="male" type="radio" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Male</span>
+                        </label>
+                        <label class="custom-control custom-radio">
+                            <input id="radio2" name="female" type="radio" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Female</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Phone Number</strong></label>
+                        <input type="text" class="form-control" name="phone">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Next</button>
+                </form>
+            </div>
+            <div class="row col-md-4">
+                <div class="card border-dark mb-3">
+                    <div class="card-header">Note</div>
+                    <div class="card-body text-dark">
+                        <p class="card-text">All information entered is protected by our
+                        <a href="">privacy policy</a>. Profile information can only be viewed
+                        by other with your permission</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>
