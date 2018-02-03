@@ -19,6 +19,40 @@
 
 <!-- Custom Styles -->
 <!--<link rel="stylesheet" href="../MyDatingSite/styles/styles.css"> -->
+
+
+
+<style>
+
+    .card{
+        margin: 2em;
+    }
+
+    h1 {
+        padding: 15px;
+        padding-top: 25px;
+    }
+
+    p {
+        padding: 15px;
+    }
+
+    hr {
+        width: 90%;
+    }
+
+    form {
+        padding-left: 15px;
+        padding-bottom: 10px;
+    }
+
+    div.pad {
+        padding-left: 50%;
+    }
+
+
+</style>
+
 <body>
 
 <nav class="navbar navbar-light" style="background-color: #a4aaaa;">
@@ -37,7 +71,53 @@
                 <form method="post" action="./contact">
 
 
+                    <div class="card-body">
+
+                        <div class="card" style="width: 18rem;">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Name: {{@first}} {{@last}}</li>
+                                <li class="list-group-item">Gender: {{@gender}}</li>
+                                <li class="list-group-item">Age: {{@age}}</li>
+                                <li class="list-group-item">Phone: {{@phone}}</li>
+                                <li class="list-group-item">Email: {{@email}}</li>
+                                <li class="list-group-item">State: {{@state}}</li>
+                                <li class="list-group-item">Seeking: {{@seeking}}</li>
+                                <li class="list-group-item">Interests:
+
+                                    <repeat group="{{@indoor}}" value="{{@activity}}">
+                                        {{@activity}}
+                                    </repeat>
+
+
+                                    <repeat group="{{@outdoor}}" value="{{@activity}}">
+                                        {{@activity}}
+                                    </repeat></li>
+
+                            </ul>
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="pad">
+
+                        <button type="submit" class="btn btn-primary">Contact Me!</button>
+
+                    </div>
+
+
+
+
                 </form>
+
+            </div>
+
+            <div class="row col-md-4">
+
+                <img src="images/profile.png" width="100%">
+                <p>Bio: {{@bio}}</p>
 
             </div>
 
