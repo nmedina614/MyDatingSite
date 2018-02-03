@@ -1,14 +1,14 @@
-<!--
+<?php
+
+session_start();
+
+/*<!--
 
 Author: Nolan Medina
 File: index.php
 Last Edited: 2/2/18
 
--->
-
-<?php
-
-session_start();
+-->*/
 
     $errors=array('test');
     $indoor=array('tv', 'movies','cooking','board games', 'puzzles', 'reading',
