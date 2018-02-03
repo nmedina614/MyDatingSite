@@ -18,38 +18,8 @@
     <![endif]-->
 
     <!-- Custom Styles -->
-    <!-- <link rel="stylesheet" href="../MyDatingSite/styles/styles.css"> -->
+    <link rel="stylesheet" href="../MyDatingSite/styles/styles2.css">
 
-    <style>
-
-        .card{
-            margin: 2em;
-        }
-
-        h1 {
-            padding: 15px;
-            padding-top: 25px;
-        }
-
-        p {
-            padding: 15px;
-        }
-
-        hr {
-            width: 90%;
-        }
-
-        form {
-            padding-left: 15px;
-            padding-bottom: 10px;
-        }
-
-        div.pad {
-            padding-left: 50%;
-        }
-
-
-    </style>
 
 </head>
 <body>
@@ -69,6 +39,9 @@
             <form method="post" action="./summary">
 
                 <h3>In-door Interests</h3>
+                <check if="{{ isset(@indoor) }}">
+                    <p>{{@indoor}}</p>
+                </check>
                 <label class="checkbox-inline">
                     <input type="checkbox" name="indoor[]" value="tv">TV
                 </label>
@@ -95,7 +68,9 @@
                 </label>
 
                 <h3>Out-door Interests</h3>
-
+                <check if="{{ isset(@outdoor) }}">
+                    <p>{{@outdoor}}</p>
+                </check>
                 <label class="checkbox-inline">
                     <input type="checkbox" name="outdoor[]" value="Hiking">Hiking
                 </label>
