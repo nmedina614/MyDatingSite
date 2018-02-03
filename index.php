@@ -29,11 +29,13 @@ $f3->route('GET /', function() {
 );
 
 
-$f3->route('POST /personal', function($f3, $errors) {
+$f3->route('GET|POST /personal', function($f3, $errors) {
+
+    /*print_r($_POST);*/
 
     if(isset($_POST['submit'])) {
 
-        include('valid/valid.php');
+        include('model/valid.php');
 
         if (validName($_POST['first'], $_POST['last'])) {
             $_SESSION['first'] = $_POST['first'];
@@ -80,7 +82,7 @@ $f3->route('POST /personal', function($f3, $errors) {
 }
 );
 
-$f3->route('POST /profile', function($f3)  {
+$f3->route('GET|POST /profile', function($f3)  {
 
     if(isset($_POST['submit'])){
         $_SESSION['email'] = $_POST['email'];
@@ -97,27 +99,27 @@ $f3->route('POST /profile', function($f3)  {
 }
 );
 
-$f3->route('POST /interests', function($f3, $indoor, $outdoor, $errors) {
+$f3->route('GET|POST /interests', function($f3, $indoor, $outdoor) {
 
     if(isset($_POST['submit'])) {
 
-        include('valid/valid.php');
 
-        foreach($_POST['indoor'] as $key=>$value)
+        $_SESSION['indoor'] = $_POST['indoor'];
+        $_SESSION['outdoor'] = $_POST['outdoor'];
+
+        foreach($_SESSION['indoor'] as $key=>$value)
         {
-            if(validIndoor($value, $indoor)){
-                $_SESSION['indoor'] = $_POST['indoor'];
-            } else{
+            if(!validIndoor($value, $indoor)){;
                 array_push($errors, 'indoor');
+                break;
             }
         }
 
         foreach($_SESSION['outdoor'] as $key=>$value)
         {
             if(validOutdoor($value, $outdoor)){
-                $_SESSION['outdoor'] = $_POST['outdoor'];
-            } else{
                 array_push($errors, 'indoor');
+                break;
             }
         }
 
@@ -146,8 +148,11 @@ $f3->route('POST /interests', function($f3, $indoor, $outdoor, $errors) {
 );
 
 
-$f3->route('POST /summary', function($f3) {
+$f3->route('GET|POST /summary', function($f3) {
 
+    if(isset($_SESSION['indoor'])){
+        echo "it is set";
+    }
 
     //print_r($_POST);
     //Array ( [indoor] => Array ( [0] => tv [1] => movies [2] => cooking [3] => board games [4] => puzzles [5] => reading [6] => playing cards [7] => video games )
@@ -167,17 +172,21 @@ $f3->route('POST /summary', function($f3) {
     $f3->set('indoor', array());
     $f3->set('outdoor',array());
 
-    foreach($_SESSION['indoor'] as $key=>$value)
-    {
-        // and print out the values
-        $f3->push('indoor', $value);
-    }
+    //I encountered an Error Here and couldn't figure out a solution. If you see what is wrong please
+    //send me a message. I think it has something to do with the session not getting stored but i don't
+    //know why that would be.
 
-    foreach($_SESSION['outdoor'] as $key=>$value)
-    {
-        // and print out the values
-        $f3->push('indoor', $value);
-    }
+       /*foreach($_SESSION['indoor'] as $key=>$value)
+       {
+               $f3->push('indoor', $value);
+        }
+
+
+       foreach($_SESSION['outdoor'] as $key=>$value)
+       {
+           // and print out the values
+           $f3->push('indoor', $value);
+       }*/
 
     $template = new Template();
     echo $template->render('pages/summary.html');
