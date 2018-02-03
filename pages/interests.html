@@ -20,12 +20,113 @@
     <!-- Custom Styles -->
     <!-- <link rel="stylesheet" href="../MyDatingSite/styles/styles.css"> -->
 
+    <style>
+
+        .card{
+            margin: 2em;
+        }
+
+        h1 {
+            padding: 15px;
+            padding-top: 25px;
+        }
+
+        p {
+            padding: 15px;
+        }
+
+        hr {
+            width: 90%;
+        }
+
+        form {
+            padding-left: 15px;
+            padding-bottom: 10px;
+        }
+
+
+    </style>
+
 </head>
 <body>
 
 <nav class="navbar navbar-light" style="background-color: #a4aaaa;">
     <h2>MyDatingSite</h2>
 </nav>
+
+
+<div class="card border-secondary mb-3" >
+
+    <div class="card-body">
+
+        <h1>Interests</h1>
+        <hr>
+        <div class="container">
+            <form method="post" action="./summary">
+
+                <h3>In-door Interests</h3>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="indoor[]" value="tv">TV
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="indoor[]" value="movies">Movies
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="indoor[]" value="cooking">Cooking
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="indoor[]" value="board games">Board Games
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="indoor[]" value="puzzles">Puzzles
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="indoor[]" value="reading">Reading
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="indoor[]" value="playing cards">Playing Cards
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="indoor[]" value="video games">Video games
+                </label>
+
+                <h3>Out-door Interests</h3>
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="outdoor[]" value="Hiking">Hiking
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="outdoor[]" value="Biking">Biking
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="outdoor[]" value="Swimming">Swimming
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="outdoor[]" value="collecting">collecting
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="outdoor[]" value="walking">walking
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="outdoor[]" value="climbing">climbing
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="outdoor[]" value="sports">sports
+                </label>
+
+
+                <br>
+                <br>
+                <button type="submit" class="btn btn-primary">Next</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
