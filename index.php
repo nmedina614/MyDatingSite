@@ -1,3 +1,11 @@
+<!--
+
+Author: Nolan Medina
+File: index.php
+Last Edited: 2/2/18
+
+-->
+
 <?php
 
 session_start();
