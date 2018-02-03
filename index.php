@@ -35,6 +35,16 @@ $f3->route('GET|POST /personal', function($f3, $errors) {
 
     if(isset($_POST['submit'])) {
 
+        $f3->set('first',$_POST['first']);
+        $f3->set('last',$_POST['first']);
+        $f3->set('ageStick',$_POST['first']);
+        $f3->set('phoneStick',$_POST['first']);
+        if($_POST['gender']=='male'){
+            $f3->set('checkedMale',$_POST['gender']);
+        } elseif($_POST['gender']=='female'){
+            $f3->set('checkedFemale',$_POST['gender']);
+        }
+
         include('model/valid.php');
 
         if (validName($_POST['first'], $_POST['last'])) {
