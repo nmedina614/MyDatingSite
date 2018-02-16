@@ -19,6 +19,7 @@ Last Edited: 2/2/18
 
 //Require the autoload file
 require_once('vendor/autoload.php');
+require('model/valid.php');
 
 //Create an instance of the Base Class
 $f3 = Base::instance();
@@ -53,7 +54,6 @@ $f3->route('GET|POST /personal', function($f3, $errors) {
             $f3->set('checkedFemale',$_POST['gender']);
         }
 
-        include('model/valid.php');
 
         if (validName($_POST['first'], $_POST['last'])) {
             $_SESSION['first'] = $_POST['first'];
@@ -117,16 +117,23 @@ $f3->route('GET|POST /profile', function($f3)  {
 }
 );
 
-$f3->route('GET|POST /interests', function($f3, $indoor, $outdoor) {
+$f3->route('GET|POST /interests', function($f3,  $errors) {
+
+    $indoor=array('tv', 'movies','cooking','board games', 'puzzles', 'reading',
+        'playing cards', 'video games');
+    $outdoor=array('Hiking', 'Biking','Swimming','collecting', 'walking', 'climbing',
+        'sports');
+
 
     if(isset($_POST['submit'])) {
-
 
         $_SESSION['indoor'] = $_POST['indoor'];
         $_SESSION['outdoor'] = $_POST['outdoor'];
 
+
         foreach($_SESSION['indoor'] as $key=>$value)
         {
+
             if(!validIndoor($value, $indoor)){;
                 array_push($errors, 'indoor');
                 break;
@@ -135,8 +142,8 @@ $f3->route('GET|POST /interests', function($f3, $indoor, $outdoor) {
 
         foreach($_SESSION['outdoor'] as $key=>$value)
         {
-            if(validOutdoor($value, $outdoor)){
-                array_push($errors, 'indoor');
+            if(!validOutdoor($value, $outdoor)){
+                array_push($errors, 'outdoor');
                 break;
             }
         }
@@ -187,8 +194,8 @@ $f3->route('GET|POST /summary', function($f3) {
     $f3->set('seeking',$_SESSION['seeking']);
     $f3->set('bio',$_SESSION['bio']);
 
-    $f3->set('indoor', array());
-    $f3->set('outdoor',array());
+    $f3->set('indoor', $_SESSION['indoor']);
+    $f3->set('outdoor',$_SESSION['outdoor']);
 
     //I encountered an Error Here and couldn't figure out a solution. If you see what is wrong please
     //send me a message. I think it has something to do with the session not getting stored but i don't

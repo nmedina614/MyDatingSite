@@ -1,11 +1,3 @@
-<!--
-
-Author: Nolan Medina
-File: valid.php
-Last Edited: 2/2/18
-
--->
-
 <?php
 
 
