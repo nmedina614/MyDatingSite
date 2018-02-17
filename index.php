@@ -11,10 +11,6 @@ Last Edited: 2/2/18
 -->*/
 
     $errors=array('test');
-    $indoor=array('tv', 'movies','cooking','board games', 'puzzles', 'reading',
-    'playing cards', 'video games');
-    $outdoor=array('Hiking', 'Biking','Swimming','collecting', 'walking', 'climbing',
-    'sports');
 
 
 //Require the autoload file
@@ -79,6 +75,8 @@ $f3->route('GET|POST /personal', function($f3, $errors) {
         if (!in_array('name', $errors) && !in_array('age', $errors)
             && !in_array('phone', $errors)) {
 
+
+            //Sets User Object to premium or not Premium, used for interests
             if(isset($_POST['premium'])) {
                 $_SESSION['premium'] = $_POST['premium'];
                 $user = new PremiumMember($_SESSION['first'], $_SESSION['last'], $_SESSION['age'], $_SESSION['gender'], $_SESSION['phone']);
@@ -86,6 +84,10 @@ $f3->route('GET|POST /personal', function($f3, $errors) {
                 $user = new Member($_SESSION['first'], $_SESSION['last'], $_SESSION['age'], $_SESSION['gender'], $_SESSION['phone']);
             }
 
+            //NOTE: This was the way I was able to pass via sessions, if i tried to do
+            //$_SESSION['user'] = $user; i would encouter a __PHP_Incomplete_Class_Name, and looking it up
+            //documentation required me to use the serialize method rather then doing the $_SESSION stuff.
+            //So i used the code from http://php.net/manual/it/oop4.serialization.php as a base
             $user1 = serialize($user);
             $fp = fopen("store", "w");
             fwrite($fp, $user1);
@@ -117,19 +119,31 @@ $f3->route('GET|POST /profile', function($f3)  {
 
     if(isset($_POST['submit'])){
 
+        //NOTE: This was the way I was able to pass via sessions, if i tried to do
+        //$_SESSION['user'] = $user; i would encouter a __PHP_Incomplete_Class_Name, and looking it up
+        //documentation required me to use the serialize method rather then doing the $_SESSION stuff.
+        //So i used the code from http://php.net/manual/it/oop4.serialization.php as a base
         $user1 = implode("", @file("store"));
         $user = unserialize($user1);
 
+        //Sets user objects variables
         $user->setEmail($_POST['email']);
         $user->setState($_POST['state']);
         $user->setSeeking($_POST['gender']);
         $user->setBio($_POST['bio']);
 
+
+        //NOTE: This was the way I was able to pass via sessions, if i tried to do
+        //$_SESSION['user'] = $user; i would encouter a __PHP_Incomplete_Class_Name, and looking it up
+        //documentation required me to use the serialize method rather then doing the $_SESSION stuff.
+        //So i used the code from http://php.net/manual/it/oop4.serialization.php as a base
         $user1 = serialize($user);
         $fp = fopen("store", "w");
         fwrite($fp, $user1);
         fclose($fp);
 
+
+        //Redirects based on premium status
         if(isset($_SESSION['premium'])){
             $f3->reroute('/interests');
         } else{
@@ -181,12 +195,22 @@ $f3->route('GET|POST /interests', function($f3,  $errors) {
 
         if (!in_array('indoor', $errors) && !in_array('outdoor', $errors)) {
 
+            //NOTE: This was the way I was able to pass via sessions, if i tried to do
+            //$_SESSION['user'] = $user; i would encouter a __PHP_Incomplete_Class_Name, and looking it up
+            //documentation required me to use the serialize method rather then doing the $_SESSION stuff.
+            //So i used the code from http://php.net/manual/it/oop4.serialization.php as a base
             $user1 = implode("", @file("store"));
             $user = unserialize($user1);
 
+            //Sets user objects variables
             $user->setIndoor($_SESSION['indoor']);
             $user->setOutdoor($_SESSION['outdoor']);
 
+
+            //NOTE: This was the way I was able to pass via sessions, if i tried to do
+            //$_SESSION['user'] = $user; i would encouter a __PHP_Incomplete_Class_Name, and looking it up
+            //documentation required me to use the serialize method rather then doing the $_SESSION stuff.
+            //So i used the code from http://php.net/manual/it/oop4.serialization.php as a base
             $user1 = serialize($user);
             $fp = fopen("store", "w");
             fwrite($fp, $user1);
@@ -219,10 +243,15 @@ $f3->route('GET|POST /interests', function($f3,  $errors) {
 
 $f3->route('GET|POST /summary', function($f3) {
 
+    //NOTE: This was the way I was able to pass via sessions, if i tried to do
+    //$_SESSION['user'] = $user; i would encouter a __PHP_Incomplete_Class_Name, and looking it up
+    //documentation required me to use the serialize method rather then doing the $_SESSION stuff.
+    //So i used the code from http://php.net/manual/it/oop4.serialization.php as a base
     $user1 = implode("", @file("store"));
     $user = unserialize($user1);
 
 
+    //Sets user variables to F3 to be used on html page.
     $f3->set('first',$user->getFname());
     $f3->set('last',$user->getLname());
     $f3->set('age',$user->getAge());
