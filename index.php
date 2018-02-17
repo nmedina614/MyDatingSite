@@ -219,6 +219,34 @@ $f3->route('GET|POST /interests', function($f3,  $errors) {
 
 $f3->route('GET|POST /summary', function($f3) {
 
+    $user1 = implode("", @file("store"));
+    $user = unserialize($user1);
+
+
+    $f3->set('first',$user->getFname());
+    $f3->set('last',$user->getLname());
+    $f3->set('age',$user->getAge());
+    $f3->set('gender',$user->getGender());
+    $f3->set('phone',$user->getPhone());
+
+    $f3->set('email',$user->getEmail());
+    $f3->set('state',$user->getState());
+    $f3->set('seeking',$user->getSeeking());
+    $f3->set('bio',$user->getBio());
+
+    if(isset($_SESSION['indoor'])){
+
+        $f3->set('indoor',$user->getIndoor());
+
+    }
+
+    if(isset($_SESSION['outdoor'])){
+
+        $f3->set('outdoor',$user->getOutdoor());
+
+    }
+
+
 
     $template = new Template();
     echo $template->render('pages/summary.html');
