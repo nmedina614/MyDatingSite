@@ -78,9 +78,10 @@ $f3->route('GET|POST /personal', function($f3, $errors) {
 
             //Sets User Object to premium or not Premium, used for interests
             if(isset($_POST['premium'])) {
-                $_SESSION['premium'] = $_POST['premium'];
+                $_SESSION['premium'] = 'yes';
                 $user = new PremiumMember($_SESSION['first'], $_SESSION['last'], $_SESSION['age'], $_SESSION['gender'], $_SESSION['phone']);
             } else{
+                $_SESSION['premium'] = 'no';
                 $user = new Member($_SESSION['first'], $_SESSION['last'], $_SESSION['age'], $_SESSION['gender'], $_SESSION['phone']);
             }
 
@@ -144,7 +145,7 @@ $f3->route('GET|POST /profile', function($f3)  {
 
 
         //Redirects based on premium status
-        if(isset($_SESSION['premium'])){
+        if(($_SESSION['premium']) == 'yes'){
             $f3->reroute('/interests');
         } else{
             $f3->reroute('/summary');
@@ -251,7 +252,7 @@ $f3->route('GET|POST /summary', function($f3) {
     $user = unserialize($user1);
 
 
-    //Sets user variables to F3 to be used on html page.
+    //Sets user variables to F3 to be used on html
     $f3->set('first',$user->getFname());
     $f3->set('last',$user->getLname());
     $f3->set('age',$user->getAge());
@@ -263,15 +264,17 @@ $f3->route('GET|POST /summary', function($f3) {
     $f3->set('seeking',$user->getSeeking());
     $f3->set('bio',$user->getBio());
 
-    if(isset($_SESSION['indoor'])){
+    if(isset($_SESSION['indoor']) && $_SESSION['premium']=='yes'){
 
         $f3->set('indoor',$user->getIndoor());
+        $f3->set('premium', true);
 
     }
 
-    if(isset($_SESSION['outdoor'])){
+    if(isset($_SESSION['outdoor']) && $_SESSION['premium']=='yes'){
 
         $f3->set('outdoor',$user->getOutdoor());
+        $f3->set('premium', true);
 
     }
 
