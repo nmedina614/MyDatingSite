@@ -117,6 +117,24 @@ $f3->route('GET|POST /profile', function($f3)  {
 
     if(isset($_POST['submit'])){
 
+        $user1 = implode("", @file("store"));
+        $user = unserialize($user1);
+
+        $user->setEmail($_POST['email']);
+        $user->setState($_POST['state']);
+        $user->setSeeking($_POST['gender']);
+        $user->setBio($_POST['bio']);
+
+        $user1 = serialize($user);
+        $fp = fopen("store", "w");
+        fwrite($fp, $user1);
+        fclose($fp);
+
+        if(isset($_SESSION['premium'])){
+            $f3->reroute('/interests');
+        } else{
+            $f3->reroute('/summary');
+        }
 
 
     }
