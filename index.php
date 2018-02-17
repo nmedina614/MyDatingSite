@@ -181,6 +181,19 @@ $f3->route('GET|POST /interests', function($f3,  $errors) {
 
         if (!in_array('indoor', $errors) && !in_array('outdoor', $errors)) {
 
+            $user1 = implode("", @file("store"));
+            $user = unserialize($user1);
+
+            $user->setIndoor($_SESSION['indoor']);
+            $user->setOutdoor($_SESSION['outdoor']);
+
+            $user1 = serialize($user);
+            $fp = fopen("store", "w");
+            fwrite($fp, $user1);
+            fclose($fp);
+
+
+            $f3->reroute('/summary');
 
 
         }
