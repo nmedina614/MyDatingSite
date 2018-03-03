@@ -16,9 +16,11 @@ Last Edited: 2/2/18
 //Require the autoload file
 require_once('vendor/autoload.php');
 require('model/valid.php');
+require ('model/database.php');
 
 //Create an instance of the Base Class
 $f3 = Base::instance();
+Database::connect();
 
 
 $f3 -> set('DEBUG', 3);
@@ -278,6 +280,37 @@ $f3->route('GET|POST /summary', function($f3) {
 
     }
 
+    //Sets the needed values for Premium, and interests to be
+    //formatted correctly for database entry
+    if ($_SESSION['premium']=='yes'){
+        $premium = 1;
+        $interests = array_merge($user->getIndoor(), $user->getOutdoor());
+        $interests = implode(",",$interests);
+    } else {
+        $premium = 0;
+        $interests = NULL;
+    }
+
+    //Sets the needed values for Gender to be
+    //formatted correctly for database entry
+    if($user->getGender()=='male'){
+        $gender = 'M';
+    } else {
+        $gender = 'F';
+    }
+
+    if($user->getSeeking()=='male'){
+        $seeking = 'M';
+    } else {
+        $seeking = 'F';
+    }
+
+
+    //Enters the Values into the database
+    Database::submitMember($user->getFname(), $user->getLname(), $user->getAge(),
+        $gender, $user->getPhone(), $user->getEmail(), $user->getState(),
+        $seeking, $user->getBio(), $premium, NULL, $interests);
+
 
 
     $template = new Template();
@@ -286,6 +319,19 @@ $f3->route('GET|POST /summary', function($f3) {
 }
 );
 
+
+$f3->route('GET|POST /admin', function($f3) {
+
+
+    //sets $f3 variable to be used in the html which is the array all the
+    // members in the database
+    $f3->set('members',Database::pullMembers());
+
+    $template = new Template();
+    echo $template->render('pages/admin.html');
+
+}
+);
 
 
 $f3->run();
