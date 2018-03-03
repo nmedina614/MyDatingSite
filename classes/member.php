@@ -77,10 +77,17 @@ class Member
 
     /**
      * sets the age of the Member
+     *
+     * If statement to tests if the age is valid
+     *
      * @param $age - Age of Member
      */
     function setAge($age){
-        $this->age = $age;
+        if(is_numeric($age) && $age>0){
+            $this->age = $age;
+        } else {
+            $this->age=0;
+        }
     }
 
     /**
@@ -109,10 +116,17 @@ class Member
 
     /**
      * sets the members Phone Number
+     *
+     * Tests to see if Phone number is valid
      * @param $phone - Phone Number of Member
      */
     function setPhone($phone){
-        $this->phone=$phone ;
+        if(strlen($phone)<12) {
+            $this->phone = $phone;
+        }
+        else {
+            $this->phone='555-555-5555';
+        }
     }
 
     /**
@@ -143,10 +157,17 @@ class Member
 
     /**
      * Sets the State of the Member.
+     *
+     * Tests to see if State if a Valid State88
      * @param $state - sets the state of the member.
      */
     function setState($state){
-        $this->state=$state;
+        if(strlen($state)==2) {
+            $this->state=$state;
+        }
+        else {
+            $this->state='NA';
+        }
     }
 
     /**
